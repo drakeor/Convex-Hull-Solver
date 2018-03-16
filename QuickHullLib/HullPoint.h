@@ -13,5 +13,15 @@ public:
 	int Y();
 	void X(int x);
 	void Y(int y);
+
+	int operator!= (HullPoint other)
+	{
+		return (x != other.x) && (y != other.y);
+	}
+
+	int operator== (HullPoint other)
+	{
+		return (x == other.x) && (y == other.y);
+	}
 };
 
