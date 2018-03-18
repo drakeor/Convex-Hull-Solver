@@ -3,6 +3,9 @@
 
 #include "../QuickHullLib/HullLine.h"
 
+/*
+Just a simple constructor test for this class
+*/
 TEST(HullLineTests, Datalongegrity) {
 
 	HullLine hullLine(1, 2, 3, 4);

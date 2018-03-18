@@ -1,23 +1,22 @@
 #include "gtest/gtest.h"
 
 #include "pch.h"
-#include "../QuickHullLib/BruteForceSolver.h"
+#include "../QuickHullLib/QuickHullSolver.h"
 
 /*
-These tests are more to check for edge cases rather than validate the output
+	These tests are more to check for edge cases rather than validate the output
 */
-
-TEST(BruteForceSolverTest, EmptyPointsTest) {
+TEST(QuickHullSolverTest, EmptyPointsTest) {
 
 	std::vector<HullPoint> points;
 
-	BruteForceSolver solver(points);
+	QuickHullSolver solver(points);
 	solver.Solve();
 
-	EXPECT_EQ(solver.GetPoint1(), 0);
+	EXPECT_EQ(solver.GetPointCount(), 0);
 }
 
-TEST(HullPointTest, OnePointTest) {
+TEST(QuickHullSolverTest, OnePointTest) {
 
 	std::vector<HullPoint> points;
 	const int pointCount = 1;
@@ -28,14 +27,14 @@ TEST(HullPointTest, OnePointTest) {
 		point.Y(i);
 		points.push_back(point);
 	}
-	BruteForceSolver solver(points);
+	QuickHullSolver solver(points);
 	solver.Solve();
 
-	EXPECT_EQ(solver.GetPoint1(), pointCount);
+	EXPECT_EQ(solver.GetPointCount(), pointCount);
 
 }
 
-TEST(HullPointTest, TwoPointsTest) {
+TEST(QuickHullSolverTest, TwoPointsTest) {
 
 	std::vector<HullPoint> points;
 	const int pointCount = 2;
@@ -46,14 +45,14 @@ TEST(HullPointTest, TwoPointsTest) {
 		point.Y(i);
 		points.push_back(point);
 	}
-	BruteForceSolver solver(points);
+	QuickHullSolver solver(points);
 	solver.Solve();
 
-	EXPECT_EQ(solver.GetPoint1(), pointCount);
+	EXPECT_EQ(solver.GetPointCount(), pointCount);
 
 }
 
-TEST(HullPointTest, ThreePointsTest) {
+TEST(QuickHullSolverTest, ThreePointsTest) {
 
 	std::vector<HullPoint> points;
 	const int pointCount = 3;
@@ -64,14 +63,14 @@ TEST(HullPointTest, ThreePointsTest) {
 		point.Y(i);
 		points.push_back(point);
 	}
-	BruteForceSolver solver(points);
+	QuickHullSolver solver(points);
 	solver.Solve();
 
-	EXPECT_EQ(solver.GetPoint1(), pointCount);
+	EXPECT_EQ(solver.GetPointCount(), pointCount);
 
 }
 
-TEST(HullPointTest, TwentyPointsTest) {
+TEST(QuickHullSolverTest, TwentyPointsTest) {
 
 	std::vector<HullPoint> points;
 	const int pointCount = 20;
@@ -82,9 +81,9 @@ TEST(HullPointTest, TwentyPointsTest) {
 		point.Y(i);
 		points.push_back(point);
 	}
-	BruteForceSolver solver(points);
+	QuickHullSolver solver(points);
 	solver.Solve();
 
-	EXPECT_EQ(solver.GetPoint1(), pointCount);
+	EXPECT_EQ(solver.GetPointCount(), pointCount);
 
 }

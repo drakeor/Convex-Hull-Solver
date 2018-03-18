@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "../QuickHullLib/HullPoint.h"
 
+// Constructor and properties tests
 TEST(HullPointTest, ConstructorTest) {
 	HullPoint HullPoint;
 
@@ -18,6 +19,7 @@ TEST(HullPointTest, PropertiesTest) {
 	EXPECT_EQ(HullPoint.Y(), 8);
 }
 
+// Important that this calculates correctly
 TEST(HullPointTest, DistanceTest) {
 	HullPoint hullPoint1;
 	hullPoint1.X(0);
@@ -30,6 +32,7 @@ TEST(HullPointTest, DistanceTest) {
 	EXPECT_EQ(hullPoint1.Dist(hullPoint2), 5);
 }
 
+// Important that this calculates correctly as well
 TEST(HullPointTest, DistanceAlongLineTest) {
 	HullPoint hullPoint1;
 	hullPoint1.X(1);
@@ -46,6 +49,7 @@ TEST(HullPointTest, DistanceAlongLineTest) {
 	EXPECT_EQ(hullPoint1.DistAlongLine(hullPoint2, hullPoint3), 3);
 }
 
+// This should always return 1
 TEST(HullPointTest, DistanceAlongLineTestNormalize1) {
 	HullPoint hullPoint1;
 	hullPoint1.X(1);
@@ -62,6 +66,7 @@ TEST(HullPointTest, DistanceAlongLineTestNormalize1) {
 	EXPECT_EQ(hullPoint1.DistAlongLine(hullPoint2, hullPoint3, true), 1);
 }
 
+// This should always return -1
 TEST(HullPointTest, DistanceAlongLineTestNormalize2) {
 	HullPoint hullPoint1;
 	hullPoint1.X(1);

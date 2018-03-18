@@ -6,6 +6,9 @@
 #include "../QuickHullLib/HullLine.h"
 #include "../QuickHullLib/ConvexHullSolver.h"
 
+/*
+	This is used to render the lines and points for the algorithms to visualize them
+*/
 class RenderEngine
 {
 private:

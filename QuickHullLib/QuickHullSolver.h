@@ -2,6 +2,7 @@
 #include <stack>
 #include "ConvexHullSolver.h"
 
+// Holds information for the next iteration of QuickHull
 struct FrameStack
 {
 	int PointA;
@@ -9,6 +10,7 @@ struct FrameStack
 	int Side;
 };
 
+// QuickHull implementation to find the convex hull given a set of vertices
 class QuickHullSolver :
 	public ConvexHullSolver
 {
@@ -19,7 +21,6 @@ public:
 	bool Step();
 
 private:
-	bool DoQuickHull(HullPoint pointA, HullPoint pointB, int side);
 	std::stack<FrameStack> frameStack;
 };
 

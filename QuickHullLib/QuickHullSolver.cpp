@@ -19,10 +19,7 @@ QuickHullSolver::QuickHullSolver(std::vector<HullPoint> Points)
 			rightMostPoint = i;
 		}
 	}
-	/*
-	DoQuickHull(points[leftMostPoint], points[rightMostPoint], 1);
-	DoQuickHull(points[leftMostPoint], points[rightMostPoint], -1);
-	*/
+
 	// Push left and right onto the stack
 	FrameStack newFrameA{ leftMostPoint, rightMostPoint, 1 };
 	FrameStack newFrameB{ leftMostPoint, rightMostPoint, -1 };
@@ -38,6 +35,11 @@ QuickHullSolver::~QuickHullSolver()
 
 bool QuickHullSolver::Step()
 {
+	// Return false if we have no points
+	if (pointCount == 0) {
+		return false;
+	}
+
 	// Return false if the stack is empty
 	if (frameStack.size() <= 0) {
 		return false;
@@ -60,17 +62,21 @@ bool QuickHullSolver::Step()
 	int currentMaxIndex = -1;
 	int currentMaxDist = 0;
 
+	// Loop through each point
 	for (int i = 0; i < pointCount; i++)
 	{
 		points[i].cResult = 0;
 		points[i].cValue = 0;
 
+		// Checkif it's on the side of the line we are currently looking at
 		if (pointA.DistAlongLine(pointB, points[i], true) == side) {
 
+			// Check if this is our newest max distance line
 			int dist = pointA.DistAlongLine(pointB, points[i]);
 			points[i].cResult = 1;
 			points[i].cValue = dist;
 
+			// If it is, update accordingly
 			if (dist > currentMaxDist) {
 				currentMaxDist = dist;
 				currentMaxIndex = i;
@@ -79,6 +85,8 @@ bool QuickHullSolver::Step()
 		else {
 			points[i].cResult = -1;
 		}
+
+		// Increment number of steps
 		++totalNumberOfSteps;
 	}
 
@@ -97,42 +105,9 @@ bool QuickHullSolver::Step()
 		pointA.DistAlongLine(points[currentMaxIndex], pointB, true) };
 	FrameStack newFrameB{ currentMaxIndex, frame.PointB, 
 		pointA.DistAlongLine(pointB, points[currentMaxIndex], true) };
+
 	frameStack.push(newFrameA);
 	frameStack.push(newFrameB);
+
 	return true;
-}
-
-bool QuickHullSolver::DoQuickHull(HullPoint pointA, HullPoint pointB, int side)
-{
-	// Find the point furthest away
-	/*int currentMaxIndex = -1;
-	int currentMaxDist = 0;
-
-	for (int i = 0; i < pointCount; i++)
-	{
-		if (pointA.DistAlongLine(pointB, points[i], true) == side) {
-			int dist = pointA.DistAlongLine(pointB, points[i]);
-			if (dist > currentMaxDist) {
-				currentMaxDist = dist;
-				currentMaxIndex = i;
-			}
-		}
-		++totalNumberOfSteps;
-	}
-
-	// No points along this side means it's a convex hull
-	// This is also the base case
-	if (currentMaxIndex == -1)
-	{
-		HullLine hullLine(pointA.X(), pointA.Y(), pointB.X(), pointB.Y());
-		lines.push_back(hullLine);
-		return false;
-	}
-
-	// Recurse for our new max
-	DoQuickHull(points[currentMaxIndex], pointA, 
-		pointA.DistAlongLine(points[currentMaxIndex], pointB, true));
-	DoQuickHull(points[currentMaxIndex], pointB, 
-		pointA.DistAlongLine(pointB, points[currentMaxIndex], true));*/
-	return false;
 }

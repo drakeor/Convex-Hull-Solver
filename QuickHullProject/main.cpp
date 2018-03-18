@@ -26,6 +26,7 @@ long main()
 	std::shared_ptr<ConvexHullSolver> solver(new QuickHullSolver(Points));
 	RenderEngine engine(&window);
 
+	// Primary loop
 	while (window.isOpen())
 	{
 		sf::Event event;

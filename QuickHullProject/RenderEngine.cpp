@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 
+// Load the font at the beginning
 RenderEngine::RenderEngine(sf::RenderWindow* window)
 {
 	this->window = window;
@@ -13,6 +14,7 @@ RenderEngine::RenderEngine(sf::RenderWindow* window)
 
 void RenderEngine::RenderLines(std::vector<HullLine> lines)
 {
+	// Draw all the lines
 	for (auto i : lines) {
 		sf::Vertex line[] =
 		{
@@ -25,6 +27,7 @@ void RenderEngine::RenderLines(std::vector<HullLine> lines)
 
 void RenderEngine::RenderCurrentLine(ConvexHullSolver * solver)
 {
+	// Only draw the points if they are valid
 	HullPoint* p1 = solver->GetPoint(solver->GetPoint1());
 	HullPoint* p2 = solver->GetPoint(solver->GetPoint2());
 	if (p1 != nullptr && p2 != nullptr) {
@@ -46,6 +49,8 @@ void RenderEngine::RenderCurrentLine(ConvexHullSolver * solver)
 
 void RenderEngine::RenderPoints(ConvexHullSolver * solver)
 {
+	// Rendering points based on if they are the currently selected points
+	// and what result they hold
 	for (long i = 0; i < solver->GetPointCount(); i++) {
 		HullPoint* p = solver->GetPoint(i);
 
@@ -86,6 +91,7 @@ void RenderEngine::RenderPoints(ConvexHullSolver * solver)
 	}
 }
 
+// Draws debug information
 void RenderEngine::DrawInformation(ConvexHullSolver * solver)
 {
 	{
