@@ -7,15 +7,9 @@ using namespace std;
 BruteForceSolver::BruteForceSolver(std::vector<HullPoint> Points)
 	: ConvexHullSolver(Points)
 {
-	cPoint1 = 0;
-	cPoint2 = 0;
-
 	a = 0;
 	b = 0;
 	c = 0;
-	isConvex = false;
-
-	pointCount = Points.size();
 }
 
 
@@ -23,21 +17,8 @@ BruteForceSolver::~BruteForceSolver()
 {
 }
 
-std::vector<HullLine> BruteForceSolver::Solve()
-{
-	while (Step());
-	return lines;
-}
 
-std::vector<HullPoint> BruteForceSolver::GetCurrentPoints()
-{
-	return Points;
-}
 
-std::vector<HullLine> BruteForceSolver::GetCurrentLines()
-{
-	return lines;
-}
 
 bool BruteForceSolver::Step()
 {
@@ -54,10 +35,9 @@ bool BruteForceSolver::Step()
 		cPoint1 = pointCount;
 		return false;
 	}
-	
 
-	HullPoint p1 = Points[cPoint1];
-	HullPoint p2 = Points[cPoint2];
+	HullPoint p1 = points[cPoint1];
+	HullPoint p2 = points[cPoint2];
 
 	// Calculate line segment between i and j
 	a = p2.Y() - p1.Y();
@@ -71,7 +51,7 @@ bool BruteForceSolver::Step()
 	// Iterate through the Points yet again
 	for (long k = 0; k < pointCount; k++) {
 
-		HullPoint p3 = Points[k];
+		HullPoint p3 = points[k];
 
 		// Make sure we don't calculate i or j
 		if (k != cPoint1 && k != cPoint2) {
@@ -92,8 +72,8 @@ bool BruteForceSolver::Step()
 				result = -1;
 			}
 
-			Points[k].cResult = result;
-			Points[k].cC = kLine;
+			points[k].cResult = result;
+			points[k].cValue = kLine;
 
 			cout << lastResult << " :: " << result << std::endl;
 
@@ -105,8 +85,7 @@ bool BruteForceSolver::Step()
 			// If there's a mismatch of results, this is not a convex hull
 			if ((lastResult == -1 && result == 1) || (lastResult == 1 && result == -1)) {
 				isConvex = false;
-				cout << "No convex hull" << endl;
-				//break;
+				break;
 			}
 		}
 	}
@@ -118,25 +97,6 @@ bool BruteForceSolver::Step()
 	return true;
 }
 
-long BruteForceSolver::GetPoint1()
-{
-	return cPoint1;
-}
-
-long BruteForceSolver::GetPoint2()
-{
-	return cPoint2;
-}
-
-long BruteForceSolver::GetPointCount()
-{
-	return pointCount;
-}
-
-bool BruteForceSolver::GetCConvex()
-{
-	return isConvex;
-}
 
 long BruteForceSolver::GetA()
 {
@@ -153,9 +113,4 @@ long BruteForceSolver::GetC()
 	return c;
 }
 
-HullPoint * BruteForceSolver::GetPoint(long id)
-{
-	if (id >= 0 && id < pointCount)
-		return &Points[id];
-	return nullptr;
-}
+

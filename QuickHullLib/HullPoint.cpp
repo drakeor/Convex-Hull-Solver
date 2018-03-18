@@ -5,7 +5,7 @@ HullPoint::HullPoint()
 {
 	x = 0;
 	y = 0;
-	cC = 0;
+	cValue = 0;
 	cResult = 0;
 }
 

@@ -25,6 +25,6 @@ public:
 	}
 
 	long cResult;
-	long cC;
+	long cValue;
 };
 

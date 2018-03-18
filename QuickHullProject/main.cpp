@@ -1,49 +1,40 @@
 #include <iostream>
 #include <sstream>
+#include <memory>
+
 #include "../QuickHullLib/PointGenerator.h"
 #include "../QuickHullLib/BruteForceSolver.h"
+#include "RenderEngine.h"
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
 long main()
 {
+	// Variables
 	const long windowSizeX = 1280;
 	const long windowSizeY = 800;
-
 	bool isAutoRunning = false;
-	auto Points = PointGenerator::Generate(25, windowSizeX, windowSizeY);
-	auto solver = BruteForceSolver(Points);
-
-	// Add Points to drawing
-	/*std::vector<sf::CircleShape> renderPoints;
-	for (auto i : Points) {
-		sf::CircleShape shape(2.f);
-		shape.setFillColor(sf::Color::Red);
-		shape.setPosition(i.X(), i.Y());
-		renderPoints.push_back(shape);
-	}*/
-
-	// Load font
-	sf::Font font;
-	if (!font.loadFromFile("Mina-Bold.ttf"))
-	{
-		std::cerr << "Cannot load font file Mini-Bold.ttf!" << std::endl;
-		return 1;
-	}
 
 	// SFML code
 	sf::RenderWindow window(sf::VideoMode(windowSizeX, windowSizeY), "Solver visualizer");
 	window.setFramerateLimit(60);
+
+	// Initialize our classes
+	auto Points = PointGenerator::Generate(25, windowSizeX, windowSizeY);
+	std::shared_ptr<ConvexHullSolver> solver(new BruteForceSolver(Points));
+	RenderEngine engine(&window);
 
 	while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+			// Close the window on close event
 			if (event.type == sf::Event::Closed)
 				window.close();
 
+			// If space is pressed, toggle auto running otherwise single step
 			if (event.type == sf::Event::KeyPressed)
 			{
 				if (event.key.code == sf::Keyboard::Space)
@@ -55,7 +46,7 @@ long main()
 				{
 					if (!isAutoRunning) 
 					{
-						solver.Step();
+						solver->Step();
 					}
 				}
 				
@@ -64,113 +55,16 @@ long main()
 
 		// Run automatically
 		if (isAutoRunning)
-			if (!solver.Step())
+			if (!solver->Step())
 				isAutoRunning = false;
 
+		// Render all of our stuff
 		window.clear();
 
-		// Render lines
-		for (auto i : solver.GetCurrentLines()) {
-			sf::Vertex line[] =
-			{
-				sf::Vertex(sf::Vector2f(i.X1(), i.Y1())),
-				sf::Vertex(sf::Vector2f(i.X2(), i.Y2()))
-			};
-			window.draw(line, 2, sf::Lines);
-		}
-
-		// Render our begining and end line
-		{
-			HullPoint* p1 = solver.GetPoint(solver.GetPoint1());
-			HullPoint* p2 = solver.GetPoint(solver.GetPoint2());
-			if (p1 != nullptr && p2 != nullptr) {
-				sf::Color color = sf::Color::Yellow;
-				if (solver.GetCConvex()) {
-					color = sf::Color::Green;
-				}
-				else {
-					color = sf::Color::Red;
-				}
-				sf::Vertex line[] =
-				{
-					sf::Vertex(sf::Vector2f(p1->X(), p1->Y()), color),
-					sf::Vertex(sf::Vector2f(p2->X(), p2->Y()), color)
-				};
-				window.draw(line, 2, sf::Lines);
-			}
-		}
-
-		// Render all our Points
-		for (long i = 0; i < solver.GetPointCount(); i++) {
-			HullPoint* p = solver.GetPoint(i);
-
-			sf::Color color = sf::Color::White;
-			if (i == solver.GetPoint1()) {
-				color = sf::Color::Yellow;
-			}
-			else if (i == solver.GetPoint2()) {
-				color = sf::Color::Cyan;
-			}
-			else if (p->cResult == -1) {
-				color = sf::Color::Red;
-			}
-			else if (p->cResult == 1) {
-				color = sf::Color::Green;
-			}
-
-			sf::CircleShape shape(2.f);
-			shape.setFillColor(color);
-			shape.setPosition(p->X(), p->Y());
-			window.draw(shape);
-
-			// Draw values for that point
-			{
-				std::ostringstream strstr;
-				strstr << " | C: " << solver.GetC()
-					<< " | AX + BY - C: " << p->cC << std::endl;
-
-				sf::Text text;
-				text.setFont(font);
-				text.setPosition(p->X() + 3, p->Y() + 3);
-				text.setString(strstr.str());
-				text.setCharacterSize(12);
-				text.setFillColor(sf::Color::Yellow);
-				window.draw(text);
-
-			}
-
-		}
-
-		// Draw solver information
-		{
-			std::ostringstream strstr;
-			strstr << "Current Point A: " << solver.GetPoint1() << " / " << solver.GetPointCount() << std::endl;
-			strstr << "Current Point B: " << solver.GetPoint2() << " / " << solver.GetPointCount() << std::endl;
-			strstr << "Current Lines: " << solver.GetCurrentLines().size() << std::endl;
-			strstr << "Current Steps: " << solver.GetTotalNumberOfSteps() << std::endl;
-			strstr << "A: " << solver.GetA() << " | B: " << solver.GetB() << " | C: " << solver.GetC() << std::endl;
-
-			sf::Text text;
-			text.setFont(font);
-			text.setFillColor(sf::Color::White);
-			text.setOutlineColor(sf::Color::Black);
-			text.setPosition(5, 5);
-			text.setString(strstr.str());
-			text.setCharacterSize(18);
-			window.draw(text);
-		}
-
-		// Draw instructions
-		{
-			sf::Text text;
-			text.setFont(font);
-			text.setFillColor(sf::Color::White);
-			text.setOutlineColor(sf::Color::Black);
-			text.setPosition(5, window.getSize().y-30);
-			text.setString("Press <space> to run continiously. Press <s> to step once.");
-			text.setCharacterSize(18);
-			window.draw(text);
-		}
+		engine.RenderLines(solver->GetCurrentLines());
+		engine.RenderCurrentLine(solver.get());
+		engine.RenderPoints(solver.get());
+		engine.DrawInformation(solver.get());
 
 		window.display();
 	}

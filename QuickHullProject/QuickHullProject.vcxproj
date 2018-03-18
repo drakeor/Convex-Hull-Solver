@@ -122,11 +122,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuickHullLib\QuickHullLib.vcxproj">
       <Project>{fc240bc3-29ac-42de-9d9a-ffe591d1333c}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RenderEngine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
