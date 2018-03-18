@@ -18,8 +18,6 @@ BruteForceSolver::~BruteForceSolver()
 }
 
 
-
-
 bool BruteForceSolver::Step()
 {
 	// Select new Points

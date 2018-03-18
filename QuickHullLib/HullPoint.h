@@ -24,6 +24,9 @@ public:
 		return (x == other.x) && (y == other.y);
 	}
 
+	long Dist(HullPoint other);
+	long DistAlongLine(HullPoint point2, HullPoint other, bool normalizeResult = false);
+
 	long cResult;
 	long cValue;
 };
