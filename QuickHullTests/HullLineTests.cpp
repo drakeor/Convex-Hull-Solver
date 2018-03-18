@@ -3,7 +3,7 @@
 
 #include "../QuickHullLib/HullLine.h"
 
-TEST(HullLineTests, DataIntegrity) {
+TEST(HullLineTests, Datalongegrity) {
 
 	HullLine hullLine(1, 2, 3, 4);
 

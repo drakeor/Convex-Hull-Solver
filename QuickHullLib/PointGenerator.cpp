@@ -4,24 +4,25 @@
 
 
 /*
- * Generates a random list of hull points across a canvas
+ * Generates a random list of hull Points across a canvas
  * For best results, set a decently high number for canvasX and canvasY with a lower n
  */
-std::vector<HullPoint> PointGenerator::Generate(int n, int canvasX, int canvasY)
+std::vector<HullPoint> PointGenerator::Generate(long n, long canvasX, long canvasY)
 {
-	std::vector<HullPoint> points;
+	srand(GetTickCount());
+	std::vector<HullPoint> Points;
 
-	const int canvasSize = canvasX * canvasY;
+	const long canvasSize = canvasX * canvasY;
 	std::unique_ptr<bool> duplicates(new bool[canvasSize]);
-	for (int i = 0; i < canvasSize; i++)
+	for (long i = 0; i < canvasSize; i++)
 		duplicates.get()[i] = false;
 
-	int duplicatesLeft = canvasSize * 10;
+	long duplicatesLeft = canvasSize * 10;
 
-	for (int i = 0; i < n; i++) {
-		int randX = rand() % canvasX;
-		int randY = rand() % canvasY; 
-		int arrayPos = randX * canvasY + randY;
+	for (long i = 0; i < n; i++) {
+		long randX = rand() % canvasX;
+		long randY = rand() % canvasY; 
+		long arrayPos = randX * canvasY + randY;
 
 		if (duplicates.get()[arrayPos]) {
 			if (duplicatesLeft <= 0)
@@ -33,19 +34,19 @@ std::vector<HullPoint> PointGenerator::Generate(int n, int canvasX, int canvasY)
 		}
 
 		duplicates.get()[arrayPos] = true;
-		HullPoint hullPoint;
-		hullPoint.X(randX);
-		hullPoint.Y(randY);
-		points.push_back(hullPoint);
+		HullPoint HullPoint;
+		HullPoint.X(randX);
+		HullPoint.Y(randY);
+		Points.push_back(HullPoint);
 	}
 
-	return points;
+	return Points;
 }
 
-std::vector<std::vector<HullPoint>> PointGenerator::GenerateMultiple(int count, int n, int canvasX, int canvasY)
+std::vector<std::vector<HullPoint>> PointGenerator::GenerateMultiple(long count, long n, long canvasX, long canvasY)
 {
 	std::vector<std::vector<HullPoint>> toReturn;
-	for (int i = 0; i < count; i++) {
+	for (long i = 0; i < count; i++) {
 		toReturn.push_back(Generate(n, canvasX, canvasY));
 	}
 	return toReturn;

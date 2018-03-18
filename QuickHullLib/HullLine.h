@@ -2,18 +2,18 @@
 class HullLine
 {
 public:
-	HullLine(int x1, int y1, int x2, int y2);
+	HullLine(long x1, long y1, long x2, long y2);
 	~HullLine();
 
-	int X1();
-	int Y1();
-	int X2();
-	int Y2();
+	long X1();
+	long Y1();
+	long X2();
+	long Y2();
 
 private:
-	int x1;
-	int y1;
-	int x2;
-	int y2;
+	long x1;
+	long y1;
+	long x2;
+	long y2;
 };
 

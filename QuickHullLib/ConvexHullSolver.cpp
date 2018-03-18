@@ -2,9 +2,9 @@
 #include "ConvexHullSolver.h"
 
 
-ConvexHullSolver::ConvexHullSolver(std::vector<HullPoint> points)
+ConvexHullSolver::ConvexHullSolver(std::vector<HullPoint> Points)
 {
-	this->points = points;
+	this->Points = Points;
 	this->totalNumberOfSteps = 0;
 }
 
@@ -12,7 +12,7 @@ ConvexHullSolver::~ConvexHullSolver()
 {
 }
 
-int ConvexHullSolver::GetTotalNumberOfSteps()
+long ConvexHullSolver::GetTotalNumberOfSteps()
 {
 	return totalNumberOfSteps;
 }

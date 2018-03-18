@@ -5,6 +5,8 @@ HullPoint::HullPoint()
 {
 	x = 0;
 	y = 0;
+	cC = 0;
+	cResult = 0;
 }
 
 
@@ -12,22 +14,22 @@ HullPoint::~HullPoint()
 {
 }
 
-int HullPoint::X()
+long HullPoint::X()
 {
 	return x;
 }
 
-int HullPoint::Y()
+long HullPoint::Y()
 {
 	return y;
 }
 
-void HullPoint::X(int x)
+void HullPoint::X(long x)
 {
 	this->x = x;
 }
 
-void HullPoint::Y(int y)
+void HullPoint::Y(long y)
 {
 	this->y = y;
 }

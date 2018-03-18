@@ -6,8 +6,8 @@
 class PointGenerator
 {
 public:
-	static std::vector<HullPoint> Generate(int n, int canvasX, int canvasY);
-	static std::vector<std::vector<HullPoint>> GenerateMultiple(int count, int n, int canvasX, int canvasY);
+	static std::vector<HullPoint> Generate(long n, long canvasX, long canvasY);
+	static std::vector<std::vector<HullPoint>> GenerateMultiple(long count, long n, long canvasX, long canvasY);
 private:
 	PointGenerator();
 	~PointGenerator();

@@ -2,26 +2,29 @@
 class HullPoint
 {
 private:
-	int x;
-	int y;
+	long x;
+	long y;
 
 public:
 	HullPoint();
 	~HullPoint();
 
-	int X();
-	int Y();
-	void X(int x);
-	void Y(int y);
+	long X();
+	long Y();
+	void X(long x);
+	void Y(long y);
 
-	int operator!= (HullPoint other)
+	long operator!= (HullPoint other)
 	{
 		return (x != other.x) && (y != other.y);
 	}
 
-	int operator== (HullPoint other)
+	long operator== (HullPoint other)
 	{
 		return (x == other.x) && (y == other.y);
 	}
+
+	long cResult;
+	long cC;
 };
 

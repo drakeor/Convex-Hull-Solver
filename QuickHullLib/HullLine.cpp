@@ -2,7 +2,7 @@
 #include "HullLine.h"
 
 
-HullLine::HullLine(int x1, int y1, int x2, int y2)
+HullLine::HullLine(long x1, long y1, long x2, long y2)
 {
 	this->x1 = x1;
 	this->y1 = y1;
@@ -14,22 +14,22 @@ HullLine::~HullLine()
 {
 }
 
-int HullLine::X1()
+long HullLine::X1()
 {
 	return x1;
 }
 
-int HullLine::X2()
+long HullLine::X2()
 {
 	return x2;
 }
 
-int HullLine::Y1()
+long HullLine::Y1()
 {
 	return y1;
 }
 
-int HullLine::Y2()
+long HullLine::Y2()
 {
 	return y2;
 }

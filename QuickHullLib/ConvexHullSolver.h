@@ -8,14 +8,14 @@
 class ConvexHullSolver
 {
 protected:
-	int totalNumberOfSteps;
-	std::vector<HullPoint> points;
+	long totalNumberOfSteps;
+	std::vector<HullPoint> Points;
 
 public:
-	ConvexHullSolver(std::vector<HullPoint> points);
+	ConvexHullSolver(std::vector<HullPoint> Points);
 	~ConvexHullSolver();
 
-	int GetTotalNumberOfSteps();
+	long GetTotalNumberOfSteps();
 
 	virtual std::vector<HullLine> Solve() = 0;
 };

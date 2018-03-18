@@ -2,18 +2,18 @@
 #include "../QuickHullLib/HullPoint.h"
 
 TEST(HullPointTest, ConstructorTest) {
-	HullPoint hullPoint;
+	HullPoint HullPoint;
 
-	EXPECT_EQ(hullPoint.X(), 0);
-	EXPECT_EQ(hullPoint.Y(), 0);
+	EXPECT_EQ(HullPoint.X(), 0);
+	EXPECT_EQ(HullPoint.Y(), 0);
 }
 
 TEST(HullPointTest, PropertiesTest) {
-	HullPoint hullPoint;
+	HullPoint HullPoint;
 
-	hullPoint.X(5);
-	hullPoint.Y(8);
+	HullPoint.X(5);
+	HullPoint.Y(8);
 
-	EXPECT_EQ(hullPoint.X(), 5);
-	EXPECT_EQ(hullPoint.Y(), 8);
+	EXPECT_EQ(HullPoint.X(), 5);
+	EXPECT_EQ(HullPoint.Y(), 8);
 }
