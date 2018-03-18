@@ -51,18 +51,33 @@ bool QuickHullSolver::Step()
 	HullPoint pointB = points[frame.PointB];
 	int side = frame.Side;
 
+	// For the graphics visualization stuff
+	isConvex = false;
+	cPoint1 = frame.PointA;
+	cPoint2 = frame.PointB;
+
 	// Now do the calculations
 	int currentMaxIndex = -1;
 	int currentMaxDist = 0;
 
 	for (int i = 0; i < pointCount; i++)
 	{
+		points[i].cResult = 0;
+		points[i].cValue = 0;
+
 		if (pointA.DistAlongLine(pointB, points[i], true) == side) {
+
 			int dist = pointA.DistAlongLine(pointB, points[i]);
+			points[i].cResult = 1;
+			points[i].cValue = dist;
+
 			if (dist > currentMaxDist) {
 				currentMaxDist = dist;
 				currentMaxIndex = i;
 			}
+		}
+		else {
+			points[i].cResult = -1;
 		}
 		++totalNumberOfSteps;
 	}
@@ -71,6 +86,7 @@ bool QuickHullSolver::Step()
 	// This is also the base case
 	if (currentMaxIndex == -1)
 	{
+		isConvex = true;
 		HullLine hullLine(pointA.X(), pointA.Y(), pointB.X(), pointB.Y());
 		lines.push_back(hullLine);
 		return true;
