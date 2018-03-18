@@ -4,6 +4,7 @@
 
 #include "../QuickHullLib/PointGenerator.h"
 #include "../QuickHullLib/BruteForceSolver.h"
+#include "../QuickHullLib/QuickHullSolver.h"
 #include "RenderEngine.h"
 #include <SFML/Graphics.hpp>
 
@@ -22,7 +23,7 @@ long main()
 
 	// Initialize our classes
 	auto Points = PointGenerator::Generate(25, windowSizeX, windowSizeY);
-	std::shared_ptr<ConvexHullSolver> solver(new BruteForceSolver(Points));
+	std::shared_ptr<ConvexHullSolver> solver(new QuickHullSolver(Points));
 	RenderEngine engine(&window);
 
 	while (window.isOpen())
