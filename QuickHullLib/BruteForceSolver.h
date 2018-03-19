@@ -8,7 +8,8 @@ public:
 	~BruteForceSolver();
 
 	bool Step();
-	
+	std::string GetName();
+
 	long GetA();
 	long GetB();
 	long GetC();

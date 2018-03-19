@@ -44,7 +44,11 @@ bool QuickHullSolver::Step()
 	if (frameStack.size() <= 0) {
 		return false;
 	}
-	std::cout << "Stack Size: " << frameStack.size() << std::endl;
+
+	// Stack overflow. haha. This should never happen but theoritically rounding errors could cause this.
+	if (frameStack.size() > 10000) {
+		return false;
+	}
 
 	// Otherwise, pop off the stack and set up our environment
 	FrameStack frame = *(&frameStack.top());
@@ -110,4 +114,9 @@ bool QuickHullSolver::Step()
 	frameStack.push(newFrameB);
 
 	return true;
+}
+
+std::string QuickHullSolver::GetName()
+{
+	return "QuickHull";
 }

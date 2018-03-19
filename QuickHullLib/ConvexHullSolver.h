@@ -34,6 +34,7 @@ public:
 	bool IsConvex();
 
 	virtual bool Step() = 0;
+	virtual std::string GetName() = 0;
 	std::vector<HullLine> Solve();
 };
 

@@ -19,6 +19,7 @@ public:
 	~QuickHullSolver();
 
 	bool Step();
+	std::string GetName();
 
 private:
 	std::stack<FrameStack> frameStack;

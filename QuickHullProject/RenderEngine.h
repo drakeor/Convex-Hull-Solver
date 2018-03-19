@@ -23,6 +23,8 @@ public:
 	void RenderPoints(ConvexHullSolver * solver);
 	void DrawInformation(ConvexHullSolver* solver);
 
+	void DrawBenchmarkInfo(std::string info);
+
 	~RenderEngine();
 };
 

@@ -57,8 +57,6 @@ bool BruteForceSolver::Step()
 			// Increment our step counter
 			++totalNumberOfSteps;
 
-			cout << c << endl;
-
 			// Analyze the line
 			long result = 0;
 			long kLine = a * p3.X() + b * p3.Y() - c;
@@ -72,8 +70,6 @@ bool BruteForceSolver::Step()
 
 			points[k].cResult = result;
 			points[k].cValue = kLine;
-
-			cout << lastResult << " :: " << result << std::endl;
 
 			// Set last result only if lastResult != 0
 			if (lastResult == 0) {
@@ -93,6 +89,11 @@ bool BruteForceSolver::Step()
 		lines.push_back(HullLine(p1.X(), p1.Y(), p2.X(), p2.Y()));
 	}
 	return true;
+}
+
+std::string BruteForceSolver::GetName()
+{
+	return "BruteForce";
 }
 
 

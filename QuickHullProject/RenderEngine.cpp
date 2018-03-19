@@ -91,11 +91,13 @@ void RenderEngine::RenderPoints(ConvexHullSolver * solver)
 	}
 }
 
+
 // Draws debug information
 void RenderEngine::DrawInformation(ConvexHullSolver * solver)
 {
 	{
 		std::ostringstream strstr;
+		strstr << "Current Solver: " << solver->GetName() << std::endl;
 		strstr << "Current Point A: " << solver->GetPoint1() << " / " << solver->GetPointCount() << std::endl;
 		strstr << "Current Point B: " << solver->GetPoint2() << " / " << solver->GetPointCount() << std::endl;
 		strstr << "Current Lines: " << solver->GetCurrentLines().size() << std::endl;
@@ -118,10 +120,22 @@ void RenderEngine::DrawInformation(ConvexHullSolver * solver)
 		text.setFillColor(sf::Color::White);
 		text.setOutlineColor(sf::Color::Black);
 		text.setPosition(5, window->getSize().y - 30);
-		text.setString("Press <space> to run continiously. Press <s> to step once.");
+		text.setString("Press <space> to run continiously. Press <s> to step once.  <c> switches solver.");
 		text.setCharacterSize(18);
 		window->draw(text);
 	}
+}
+
+void RenderEngine::DrawBenchmarkInfo(std::string info)
+{
+	sf::Text text;
+	text.setFont(font);
+	text.setFillColor(sf::Color::Cyan);
+	text.setOutlineColor(sf::Color::Black);
+	text.setPosition(100, window->getSize().y / 2);
+	text.setString(info);
+	text.setCharacterSize(24);
+	window->draw(text);
 }
 
 
